@@ -42,6 +42,23 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Show success message
+function showSuccessMessage() {
+    const modalContent = document.querySelector('.modal-content');
+    modalContent.innerHTML = `
+        <div class="success-message">
+            <h2>Your information has been sent. Thank you!</h2>
+            <p>We appreciate your interest in Futuro. Someone from our team will reach out to you shortly.</p>
+            <button class="success-close-btn" id="successCloseBtn">Close</button>
+        </div>
+    `;
+    
+    // Add event listener to new close button
+    document.getElementById('successCloseBtn').addEventListener('click', () => {
+        location.reload(); // Reload page to reset modal
+    });
+}
+
 // Form submission
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -65,11 +82,6 @@ signupForm.addEventListener('submit', async (e) => {
 
     if (industries.length === 0) {
         alert('Please select at least one industry');
-        return;
-    }
-
-    if (!document.getElementById('agreedToTest').checked) {
-        alert('You must agree to test and give feedback');
         return;
     }
 
@@ -99,20 +111,18 @@ signupForm.addEventListener('submit', async (e) => {
             body: JSON.stringify({ json: data }),
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error?.message || 'Submission failed');
-        }
-
         const result = await response.json();
 
-        // Success
-        alert('Thank you for signing up! We will be in touch soon.');
-        closeModalHandler();
+        // Check if there's an error in the response
+        if (result.error) {
+            throw new Error(result.error.message || 'Submission failed');
+        }
+
+        // Success - show success message
+        showSuccessMessage();
     } catch (error) {
         console.error('Error:', error);
         alert('Sorry, there was an error submitting your form. Please try again or email us directly.');
-    } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit';
     }

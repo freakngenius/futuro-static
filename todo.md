@@ -7,4 +7,17 @@
 - [x] Increase footer copyright text opacity/darkness
 - [x] Adjust right side heading font size and spacing
 - [x] Change button text color to dark gray/black (#333)
-- [ ] Verify responsive behavior still works
+- [x] Verify responsive behavior still works
+
+## New Design & Form Fixes
+
+- [x] Reduce logo size by 25%
+- [x] Center "COMING 2026" text with logo
+- [x] Reduce "COMING 2026" font size by 5pts (from 2.5rem to 2.2rem)
+- [x] Center copyright text with logo
+- [x] Reduce right side heading by 10pts (from 3.8rem to 3.3rem)
+- [x] Fix modal scrollbar showing square corners on right side
+- [x] Remove mandatory beta testing checkbox from form
+- [x] Fix form submission error
+- [x] Add success message display in modal after submission
+- [x] Add close button to success message modal

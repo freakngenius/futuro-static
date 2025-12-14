@@ -31,29 +31,33 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     max-width: 600px;
+    width: 100%;
 }
 
 .logo {
     width: 100%;
-    max-width: 550px;
+    max-width: 412px;
     height: auto;
     margin-bottom: 80px;
 }
 
 .coming-soon {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 600;
     color: #b0b0b0;
     letter-spacing: 0.15em;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .left-footer {
     font-size: 0.95rem;
     color: #888;
     margin-top: 40px;
+    text-align: center;
+    width: 100%;
 }
 
 /* Right Side - CTA */
@@ -76,7 +80,7 @@ body {
 }
 
 .cta-heading {
-    font-size: 3.8rem;
+    font-size: 3.3rem;
     font-weight: 700;
     color: white;
     margin-bottom: 50px;
@@ -198,6 +202,24 @@ body {
     box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
 }
 
+/* Hide scrollbar but keep functionality */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
+}
+
 .modal-close {
     position: absolute;
     top: 20px;
@@ -230,6 +252,40 @@ body {
     color: #666;
     margin-bottom: 30px;
     line-height: 1.6;
+}
+
+.success-message {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.success-message h2 {
+    color: #7054ea;
+    margin-bottom: 20px;
+}
+
+.success-message p {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.success-close-btn {
+    margin-top: 30px;
+    background-color: #7054ea;
+    color: white;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.success-close-btn:hover {
+    background-color: #5a3fd6;
 }
 
 /* Form Styles */
