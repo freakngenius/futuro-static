@@ -62,3 +62,6 @@
 - [x] Add natural vertical spacing between logo and COMING 2026 (100px gap)
 - [x] Add natural vertical spacing between heading and Sign Up button (80px gap)
 - [x] Move copyright to absolute bottom of page (30px from bottom)
+
+## Fine-tune Spacing
+- [x] Reduce gap between logo and COMING 2026 from 100px to 60px
