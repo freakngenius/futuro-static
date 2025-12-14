@@ -47,3 +47,6 @@
 - [x] Improve vertical spacing and balance
 - [x] Increase copyright text visibility
 - [x] Create professional, balanced overall layout
+
+## Exact Vertical Alignment Fix
+- [x] Use absolute positioning to align COMING 2026 and Sign Up button at exact same height
