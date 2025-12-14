@@ -90,17 +90,18 @@ signupForm.addEventListener('submit', async (e) => {
     submitBtn.textContent = 'Submitting...';
 
     try {
-        // Call Manus backend API
+        // Call Manus backend API using tRPC format
         const response = await fetch(`${API_URL}/betaSignup.submit`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify({ json: data }),
         });
 
         if (!response.ok) {
-            throw new Error('Submission failed');
+            const errorData = await response.json();
+            throw new Error(errorData.error?.message || 'Submission failed');
         }
 
         const result = await response.json();
