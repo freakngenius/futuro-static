@@ -1,7 +1,5 @@
-// Configuration - UPDATE THIS AFTER PUBLISHING MANUS PROJECT
-// UPDATE THIS URL AFTER PUBLISHING THE MANUS PROJECT
-// For now, use the dev server URL, but replace with published URL later
-const API_URL = 'https://3000-icchk79cuhfelzkbidjku-6660d157.manusvm.computer/api/trpc';
+// API endpoint for Manus-hosted backend
+const API_URL = 'https://futuro-lp-bb3izgkk.manus.space/api/trpc';
 
 // Set current year
 document.getElementById('year').textContent = new Date().getFullYear();
