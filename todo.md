@@ -21,3 +21,15 @@
 - [x] Fix form submission error
 - [x] Add success message display in modal after submission
 - [x] Add close button to success message modal
+
+## CORS Fix
+
+- [x] Configure CORS on Manus backend to allow requests from www.futuro.so
+- [x] Test form submission from production site
+
+## New Requirements
+
+- [x] Add back "I am interested in testing and giving feedback" checkbox (optional, not required)
+- [x] Update frontend to send checkbox value to backend
+- [x] Add delete button for each entry in backend admin dashboard
+- [x] Update backend API to handle delete requests

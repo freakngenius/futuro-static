@@ -94,7 +94,7 @@ signupForm.addEventListener('submit', async (e) => {
         roles: roles,
         industries: industries,
         howHeard: formData.get('howHeard') || '',
-        agreedToTest: true,
+        agreedToTest: document.getElementById('agreedToTest').checked,
     };
 
     // Disable submit button
