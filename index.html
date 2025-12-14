@@ -11,27 +11,25 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Background -->
-        <div class="background"></div>
-        <div class="overlay"></div>
-
-        <!-- Main Content -->
-        <main class="content">
-            <div class="logo-container">
+    <div class="split-container">
+        <!-- Left Side - Logo and Coming Soon -->
+        <div class="left-side">
+            <div class="left-content">
                 <img src="logo.png" alt="Futuro - Storytelling Studio OS" class="logo">
+                <h2 class="coming-soon">COMING 2026</h2>
             </div>
+            <footer class="left-footer">
+                &copy; <span id="year"></span> Futuro. All rights reserved.
+            </footer>
+        </div>
 
-            <div class="cta-section">
-                <h2>Apply for early access beta testing</h2>
-                <button id="signupBtn" class="signup-btn">Sign up</button>
+        <!-- Right Side - CTA -->
+        <div class="right-side">
+            <div class="right-content">
+                <h1 class="cta-heading">Apply for early access<br>& beta testing</h1>
+                <button id="signupBtn" class="signup-btn">Sign Up</button>
             </div>
-        </main>
-
-        <!-- Footer -->
-        <footer>
-            &copy; <span id="year"></span> Futuro. All rights reserved.
-        </footer>
+        </div>
     </div>
 
     <!-- Modal -->
