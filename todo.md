@@ -65,3 +65,6 @@
 
 ## Fine-tune Spacing
 - [x] Reduce gap between logo and COMING 2026 from 100px to 60px
+
+## Vertical Position Adjustment
+- [x] Lower right side content (heading and button) by 10px
