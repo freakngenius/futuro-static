@@ -50,3 +50,10 @@
 
 ## Exact Vertical Alignment Fix
 - [x] Use absolute positioning to align COMING 2026 and Sign Up button at exact same height
+
+## URGENT: Fix Broken Layout
+- [x] Revert broken absolute positioning
+- [x] Rebuild layout with proper grid structure
+- [x] Ensure logo is centered with COMING 2026 below it
+- [x] Ensure heading and button are properly positioned on right side
+- [x] Align COMING 2026 and Sign Up button at same height

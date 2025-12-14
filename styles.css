@@ -19,12 +19,12 @@ body {
 .left-side {
     width: 50%;
     background-color: #f3f3f6;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: 1fr auto auto;
     align-items: center;
     padding: 60px;
     position: relative;
+    min-height: 100vh;
 }
 
 .left-content {
@@ -34,7 +34,8 @@ body {
     align-items: center;
     max-width: 600px;
     width: 100%;
-    position: relative;
+    margin: 0 auto;
+    grid-row: 1;
 }
 
 .logo {
@@ -51,22 +52,17 @@ body {
     letter-spacing: 0.15em;
     text-transform: uppercase;
     text-align: center;
-    position: absolute;
-    bottom: 200px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
+    grid-row: 2;
+    margin-bottom: 200px;
 }
 
 .left-footer {
     font-size: 0.95rem;
     color: #666;
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
     text-align: center;
     width: 100%;
+    grid-row: 3;
+    margin-bottom: 40px;
 }
 
 /* Right Side - CTA */
@@ -76,11 +72,12 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    display: flex;
+    display: grid;
+    grid-template-rows: 1fr auto;
     align-items: center;
-    justify-content: center;
     padding: 60px;
     position: relative;
+    min-height: 100vh;
 }
 
 .right-content {
@@ -88,6 +85,11 @@ body {
     z-index: 2;
     position: relative;
     width: 100%;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .cta-heading {
@@ -97,7 +99,6 @@ body {
     margin-bottom: 0;
     line-height: 1.3;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-    margin-top: -80px;
 }
 
 .signup-btn {
@@ -112,14 +113,13 @@ body {
     transition: all 0.3s ease;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     font-family: 'Space Grotesk', sans-serif;
-    position: absolute;
-    bottom: 200px;
-    left: 50%;
-    transform: translateX(-50%);
+    grid-row: 2;
+    margin-bottom: 200px;
+    justify-self: center;
 }
 
 .signup-btn:hover {
-    transform: translateX(-50%) translateY(-2px);
+    transform: translateY(-2px);
     box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
 }
 
