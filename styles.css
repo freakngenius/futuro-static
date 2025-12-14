@@ -34,6 +34,7 @@ body {
     align-items: center;
     max-width: 600px;
     width: 100%;
+    padding-bottom: 100px;
 }
 
 .logo {
@@ -46,19 +47,15 @@ body {
 .coming-soon {
     font-size: 2.2rem;
     font-weight: 600;
-    color: white;
+    color: #b0b0b0;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     text-align: center;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-}
-
-.cta-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
+    position: absolute;
+    bottom: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
 }
 
 .left-footer {
@@ -86,6 +83,8 @@ body {
 .right-content {
     text-align: center;
     z-index: 2;
+    position: relative;
+    padding-bottom: 100px;
 }
 
 .cta-heading {
@@ -107,6 +106,10 @@ body {
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     font-family: 'Space Grotesk', sans-serif;
 }

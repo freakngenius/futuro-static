@@ -36,3 +36,7 @@
 
 ## Layout Update
 - [x] Move "COMING 2026" to be horizontally aligned with "Sign Up" button
+
+## Layout Correction
+- [x] Move "COMING 2026" back to left side, centered with logo
+- [x] Align "COMING 2026" and "Sign Up" button at same vertical height on opposite sides
