@@ -37,22 +37,22 @@ body {
 
 .logo {
     width: 100%;
-    max-width: 500px;
+    max-width: 550px;
     height: auto;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .coming-soon {
     font-size: 2.5rem;
     font-weight: 600;
-    color: #9b9b9b;
-    letter-spacing: 0.1em;
+    color: #b0b0b0;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
 }
 
 .left-footer {
     font-size: 0.95rem;
-    color: #9b9b9b;
+    color: #888;
     margin-top: 40px;
 }
 
@@ -76,17 +76,17 @@ body {
 }
 
 .cta-heading {
-    font-size: 3.5rem;
+    font-size: 3.8rem;
     font-weight: 700;
     color: white;
-    margin-bottom: 40px;
-    line-height: 1.2;
+    margin-bottom: 50px;
+    line-height: 1.3;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .signup-btn {
     background-color: white;
-    color: #333;
+    color: #1a1a1a;
     font-size: 1.3rem;
     font-weight: 600;
     padding: 18px 60px;
