@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuro - Storytelling Studio OS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Background -->
+        <div class="background"></div>
+        <div class="overlay"></div>
+
+        <!-- Main Content -->
+        <main class="content">
+            <div class="logo-container">
+                <img src="logo.png" alt="Futuro - Storytelling Studio OS" class="logo">
+            </div>
+
+            <div class="cta-section">
+                <h2>Apply for early access beta testing</h2>
+                <button id="signupBtn" class="signup-btn">Sign up</button>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            &copy; <span id="year"></span> Futuro. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            
+            <h2>Apply for Early Access Beta Testing</h2>
+            <p class="modal-description">
+                Thanks for your interest in being a beta tester for Futuro's new storytelling studio OS. 
+                Please enter the information below and someone will reach out to you shortly.
+            </p>
+
+            <form id="signupForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name <span class="required">*</span></label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="webBrowser">Web Browser <span class="required">*</span></label>
+                    <select id="webBrowser" name="webBrowser" required>
+                        <option value="">Select your browser</option>
+                        <option value="Atlas">Atlas</option>
+                        <option value="Brave">Brave</option>
+                        <option value="Chrome">Chrome</option>
+                        <option value="Comet">Comet</option>
+                        <option value="Edge">Edge</option>
+                        <option value="Firefox">Firefox</option>
+                        <option value="Opera">Opera</option>
+                        <option value="Safari">Safari</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Role <span class="required">*</span> <span class="hint">(select all that apply)</span></label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="roles" value="Artist"> Artist
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="roles" value="Director"> Director
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="roles" value="Just exploring"> Just exploring
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="roles" value="Manager"> Manager
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="roles" value="Producer"> Producer
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="roles" value="Other"> Other
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Industry <span class="required">*</span> <span class="hint">(select all that apply)</span></label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="industries" value="Advertising"> Advertising
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="industries" value="Artist"> Artist
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="industries" value="Filmmaking"> Filmmaking
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="industries" value="Marketing"> Marketing
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="industries" value="Social Media"> Social Media
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="industries" value="Other"> Other
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="howHeard">How did you hear about Futuro?</label>
+                    <textarea id="howHeard" name="howHeard" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label agreement">
+                        <input type="checkbox" id="agreedToTest" name="agreedToTest" required>
+                        I am interested in testing and giving feedback of the product. <span class="required">*</span>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn-primary" id="submitBtn">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
