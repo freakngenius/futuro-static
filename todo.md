@@ -57,3 +57,8 @@
 - [x] Ensure logo is centered with COMING 2026 below it
 - [x] Ensure heading and button are properly positioned on right side
 - [x] Align COMING 2026 and Sign Up button at same height
+
+## Spacing Improvements
+- [x] Add natural vertical spacing between logo and COMING 2026 (100px gap)
+- [x] Add natural vertical spacing between heading and Sign Up button (80px gap)
+- [x] Move copyright to absolute bottom of page (30px from bottom)
