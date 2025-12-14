@@ -33,3 +33,6 @@
 - [x] Update frontend to send checkbox value to backend
 - [x] Add delete button for each entry in backend admin dashboard
 - [x] Update backend API to handle delete requests
+
+## Layout Update
+- [x] Move "COMING 2026" to be horizontally aligned with "Sign Up" button

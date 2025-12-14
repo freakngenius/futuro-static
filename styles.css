@@ -46,10 +46,19 @@ body {
 .coming-soon {
     font-size: 2.2rem;
     font-weight: 600;
-    color: #b0b0b0;
+    color: white;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     text-align: center;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
 }
 
 .left-footer {
