@@ -85,9 +85,9 @@ body {
     padding-top: 32px;
 }
 
-.left-footer {
+.right-footer {
     font-size: 0.95rem;
-    color: #666;
+    color: white;
     text-align: center;
     width: 100%;
     position: absolute;
@@ -216,18 +216,19 @@ body {
         padding: 15px 45px;
     }
 
-    /* Mobile: Raise CTA content higher */
+    /* Mobile: Raise CTA content much higher */
     .right-content {
-        margin-top: 0 !important;
+        margin-top: -100px !important;
         justify-content: flex-start;
-        padding-top: 60px;
+        padding-top: 0;
+        grid-row: 1;
     }
 
-    /* Mobile: Move copyright to bottom with white text */
-    .left-footer {
-        position: static;
-        color: white;
-        padding-top: 40px;
+    /* Mobile: Right footer at bottom */
+    .right-footer {
+        position: absolute;
+        bottom: 20px;
+        grid-row: auto;
     }
 }
 
