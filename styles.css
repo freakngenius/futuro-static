@@ -215,6 +215,20 @@ body {
         font-size: 1.1rem;
         padding: 15px 45px;
     }
+
+    /* Mobile: Raise CTA content higher */
+    .right-content {
+        margin-top: 0 !important;
+        justify-content: flex-start;
+        padding-top: 60px;
+    }
+
+    /* Mobile: Move copyright to bottom with white text */
+    .left-footer {
+        position: static;
+        color: white;
+        padding-top: 40px;
+    }
 }
 
 /* Modal Styles */
