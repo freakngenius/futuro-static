@@ -47,7 +47,7 @@ body {
 }
 
 .coming-soon {
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: #b0b0b0;
     letter-spacing: 0.15em;
@@ -91,12 +91,12 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 60px;
-    margin-top: 0px;
+    gap: 40px;
+    margin-top: -80px;
 }
 
 .cta-heading {
-    font-size: 3.0rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: white;
     margin-bottom: 0;
