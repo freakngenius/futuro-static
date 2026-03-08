@@ -1,5 +1,4 @@
-// API endpoint for Manus-hosted backend
-const API_URL = 'https://futuro-lp-bb3izgkk.manus.space/api/trpc';
+const API_URL = 'https://script.google.com/macros/s/AKfycbypQYDR6WKxa7LCadUSgG868TJZhczPl3y6rf7s4NsQdIqJKGevB1lHbmwA_NGQT5WhVA/exec';
 
 // Set current year
 document.getElementById('year').textContent = new Date().getFullYear();
@@ -102,20 +101,15 @@ signupForm.addEventListener('submit', async (e) => {
     submitBtn.textContent = 'Submitting...';
 
     try {
-        // Call Manus backend API using tRPC format
-        const response = await fetch(`${API_URL}/betaSignup.submit`, {
+        const response = await fetch(API_URL, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ json: data }),
+            body: JSON.stringify(data),
         });
 
         const result = await response.json();
 
-        // Check if there's an error in the response
-        if (result.error) {
-            throw new Error(result.error.message || 'Submission failed');
+        if (!result.success) {
+            throw new Error(result.error || 'Submission failed');
         }
 
         // Success - show success message
