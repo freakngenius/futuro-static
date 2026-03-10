@@ -1,5 +1,5 @@
 {
-  "rewrites": [
-    { "source": "/sxsw", "destination": "/api/sxsw" }
-  ]
+  "functions": {
+    "api/*.js": { "runtime": "nodejs20.x" }
+  }
 }
