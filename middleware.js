@@ -122,20 +122,11 @@ function htmlCard() {
   <div class="card">
     <img class="avatar" src="/sxsw/assets/jeremy.jpeg" alt="Jeremy Boxer">
     <p class="name">Jeremy Boxer</p>
-    <p class="title">Founder &middot; Futuro</p>
+    <p class="title">Futuro</p>
     <a class="save-btn" href="/sxsw/jeremy.vcf" download="jeremy-boxer.vcf">Save to Contacts</a>
     <a class="form-btn" href="/sxsw/">Drop your info &rarr;</a>
     <p class="meta">+1 (310) 747-4475<br>Jeremy@futuro.so</p>
   </div>
-  <script>
-    // Auto-trigger vCard download on load
-    var a = document.createElement('a');
-    a.href = '/sxsw/jeremy.vcf';
-    a.download = 'jeremy-boxer.vcf';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  </script>
 </body>
 </html>`;
 }
@@ -148,19 +139,7 @@ export default function middleware(request) {
 
   if (pathname !== '/sxsw/jeremy') return;
 
-  const serveVCard = shouldServeVCard(request);
-  logScan(request, serveVCard ? 'vcard' : 'html');
-
-  if (serveVCard) {
-    return new Response(VCARD, {
-      status: 200,
-      headers: {
-        'Content-Type': 'text/vcard; charset=utf-8',
-        'Content-Disposition': 'inline; filename="jeremy-boxer.vcf"',
-        'Cache-Control': 'no-store',
-      },
-    });
-  }
+  logScan(request, 'html');
 
   return new Response(htmlCard(), {
     status: 200,
