@@ -9,7 +9,378 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="sxsw.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: #0a0a0f;
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.bg-fallback {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.50);
+    z-index: 1;
+}
+
+.page {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+}
+
+.form-fields-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.glass-backdrop {
+    position: absolute;
+    inset: -20px -24px;
+    background: rgba(10, 10, 15, 0.60);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-link {
+    display: block;
+    margin-bottom: 18px;
+}
+
+.logo {
+    width: 300px;
+    height: auto;
+}
+
+.headline {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
+
+.subline {
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 36px;
+    max-width: 380px;
+}
+
+.signup-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-field {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-field label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.req {
+    color: #7054ea;
+}
+
+.form-field input[type="text"],
+.form-field input[type="email"],
+.form-field select {
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+}
+
+.form-field select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.5)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+}
+
+.form-field select option {
+    background: #1a1a2e;
+    color: #ffffff;
+}
+
+.form-field input[type="text"]::placeholder,
+.form-field input[type="email"]::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.form-field input[type="text"]:focus,
+.form-field input[type="email"]:focus,
+.form-field select:focus {
+    outline: none;
+    border-color: #7054ea;
+    background: rgba(112, 84, 234, 0.1);
+}
+
+.form-field input[type="text"].error,
+.form-field input[type="email"].error {
+    border-color: #ef4444;
+}
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.radio-label:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.radio-label:has(input:checked) {
+    border-color: #7054ea;
+    background: rgba(112, 84, 234, 0.15);
+}
+
+.radio-label input[type="radio"] {
+    accent-color: #7054ea;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.check-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.check-label:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.check-label:has(input:checked) {
+    border-color: #7054ea;
+    background: rgba(112, 84, 234, 0.15);
+}
+
+.check-label input[type="checkbox"] {
+    accent-color: #7054ea;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.check-label.standalone {
+    padding: 0;
+    border: none;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.check-label.standalone:has(input:checked) {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.hint {
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.field-error {
+    font-size: 0.8rem;
+    color: #ef4444;
+    min-height: 0;
+    transition: min-height 0.2s ease;
+}
+
+.field-error:not(:empty) {
+    min-height: 1.2em;
+}
+
+.form-error {
+    font-size: 0.875rem;
+    color: #ef4444;
+    text-align: center;
+    min-height: 0;
+}
+
+.form-error:not(:empty) {
+    min-height: 1.4em;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: #7054ea;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease, opacity 0.2s ease;
+    margin-top: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.submit-btn:hover {
+    background: #5a3fd6;
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.success-state {
+    width: 100%;
+    text-align: center;
+    animation: fadeUp 0.4s ease;
+}
+
+.success-icon {
+    margin-bottom: 24px;
+}
+
+.success-headline {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.success-sub {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.5;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.footer {
+    margin-top: 48px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+}
+
+@media (min-width: 480px) {
+    .headline { font-size: 2.25rem; }
+    .container { max-width: 480px; }
+    .glass-backdrop { inset: -24px -28px; }
+}
+
+@media (min-width: 768px) {
+    .page { padding: 60px 20px; }
+    .headline { font-size: 2.5rem; }
+    .logo { width: 330px; }
+    .glass-backdrop { inset: -28px -32px; border-radius: 24px; }
+}
+    </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RV9R3N637Z"></script>
     <script>
