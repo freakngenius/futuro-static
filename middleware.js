@@ -180,6 +180,19 @@ function htmlCard() {
 export default function middleware(request) {
   const { pathname } = new URL(request.url);
 
+  // Serve clean vCard (no embedded photo — large base64 photo causes iOS
+  // to open in Files/Preview instead of triggering the Contacts sheet)
+  if (pathname === '/sxsw/jeremy.vcf') {
+    return new Response(VCARD, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/vcard; charset=utf-8',
+        'Content-Disposition': 'inline; filename="jeremy-boxer.vcf"',
+        'Cache-Control': 'no-store',
+      },
+    });
+  }
+
   if (pathname !== '/sxsw/jeremy') return;
 
   logScan(request, 'html');
@@ -194,5 +207,5 @@ export default function middleware(request) {
 }
 
 export const config = {
-  matcher: '/sxsw/jeremy',
+  matcher: ['/sxsw/jeremy', '/sxsw/jeremy.vcf'],
 };
