@@ -136,7 +136,7 @@ function htmlCard() {
     <img class="avatar" src="/sxsw/assets/jeremy.jpeg" alt="Jeremy Boxer">
     <p class="name">Jeremy Boxer</p>
     <p class="title">Futuro</p>
-    <button class="save-btn" onclick="saveContact(this)">Save to Contacts</button>
+    <button class="save-btn" onclick="saveContact()">Save to Contacts</button>
     <p class="hint">Tap above to add Jeremy directly to your Contacts.</p>
     <div class="actions">
       <a href="tel:+13107474475">Call</a>
@@ -148,26 +148,37 @@ function htmlCard() {
     <p class="footer-note">Built with Futuro &middot; SXSW</p>
   </div>
   <script>
-    function saveContact(btn) {
-      var vcfUrl = 'https://www.futuro.so/sxsw/jeremy.vcf';
+    var VCARD = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'N:Boxer;Jeremy;;;',
+      'FN:Jeremy Boxer',
+      'ORG:Futuro',
+      'TEL;TYPE=CELL:+13107474475',
+      'EMAIL;TYPE=INTERNET:Jeremy@futuro.so',
+      'URL:https://www.futuro.so',
+      'END:VCARD'
+    ].join('\r\n');
+
+    function saveContact() {
       var ua = navigator.userAgent || '';
 
       if (/Android/.test(ua)) {
-        // Android Chrome blocks .vcf intent from plain links — use Android Intent URL
-        // to bypass Chrome's download manager and hand directly to Contacts app.
-        // browser_fallback_url fires if no Contacts app handles it.
-        var intentUrl = 'intent:' + vcfUrl +
-          '#Intent' +
-          ';action=android.intent.action.VIEW' +
-          ';type=text/vcard' +
-          ';S.browser_fallback_url=' + encodeURIComponent(vcfUrl) +
-          ';end';
-        window.location.href = intentUrl;
-      } else {
-        // iOS Safari: navigating to text/vcard + Content-Disposition: inline
-        // triggers the native "Add to Contacts" sheet directly.
-        window.location.href = vcfUrl;
+        // Android: intent URL hands directly to Contacts app, bypassing Chrome download manager
+        var vcfUrl = 'https://www.futuro.so/sxsw/jeremy.vcf';
+        window.location.href = 'intent:' + vcfUrl +
+          '#Intent;action=android.intent.action.VIEW;type=text/vcard' +
+          ';S.browser_fallback_url=' + encodeURIComponent(vcfUrl) + ';end';
+        return;
       }
+
+      // iOS 16+: navigating to a remote .vcf URL downloads to Files.
+      // Blob URL is treated as a local resource — iOS opens it in Quick Look
+      // which shows the contact card with a native "Add All Contacts" button.
+      var blob = new Blob([VCARD], { type: 'text/vcard' });
+      var url = URL.createObjectURL(blob);
+      window.location.href = url;
+      setTimeout(function() { URL.revokeObjectURL(url); }, 5000);
     }
   </script>
 </body>
