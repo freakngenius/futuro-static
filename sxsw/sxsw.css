@@ -335,7 +335,10 @@ body {
     border-radius: 12px;
     cursor: pointer;
     transition: background 0.2s ease, transform 0.1s ease, opacity 0.2s ease;
-    margin-top: 4px;
+    /* Pull the button up so it overlaps the bottom of the glass backdrop */
+    position: relative;
+    z-index: 2;
+    margin-top: -16px;
     -webkit-appearance: none;
     appearance: none;
 }
@@ -355,28 +358,62 @@ body {
 }
 
 /* ============================================
-   Success State
+   Success Overlay — full-screen takeover
    ============================================ */
-.success-state {
-    width: 100%;
+.success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    animation: fadeIn 0.5s ease;
+}
+
+.success-overlay-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    animation: fadeUp 0.4s ease;
+    padding: 48px 36px;
+    max-width: 500px;
+    background: rgba(10, 10, 15, 0.65);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.success-overlay .logo-link {
+    margin-bottom: 40px;
 }
 
 .success-icon {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .success-headline {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    line-height: 1.2;
 }
 
 .success-sub {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.65);
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.5;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeUp {
@@ -417,6 +454,49 @@ body {
     }
 }
 
+/* ============================================
+   Portrait-only lock
+   ============================================ */
+.rotate-overlay {
+    display: none;
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+    .rotate-overlay {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        background: #0a0a0f;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        text-align: center;
+        padding: 24px;
+    }
+
+    .rotate-overlay svg {
+        opacity: 0.5;
+        animation: rotateHint 2s ease-in-out infinite;
+    }
+
+    .rotate-overlay p {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    @keyframes rotateHint {
+        0%, 100% { transform: rotate(0deg); }
+        50% { transform: rotate(90deg); }
+    }
+
+    /* Hide everything else */
+    body > *:not(.rotate-overlay) {
+        visibility: hidden;
+    }
+}
+
 @media (min-width: 768px) {
     .page {
         padding: 60px 20px;
@@ -433,5 +513,13 @@ body {
     .glass-backdrop {
         inset: -28px -32px;
         border-radius: 24px;
+    }
+
+    .success-headline {
+        font-size: 2.5rem;
+    }
+
+    .success-sub {
+        font-size: 1.25rem;
     }
 }
