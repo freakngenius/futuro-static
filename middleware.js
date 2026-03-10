@@ -101,6 +101,18 @@ function htmlCard() {
       margin-bottom: 12px;
     }
     .save-btn:active { background: #5a3fd6; }
+    .hint {
+      font-size: 0.75rem; color: rgba(255,255,255,0.4);
+      margin-top: 8px; line-height: 1.4;
+    }
+    .actions {
+      display: flex; justify-content: center; gap: 20px;
+      margin-top: 20px; margin-bottom: 20px;
+    }
+    .actions a {
+      font-size: 0.9rem; color: rgba(255,255,255,0.7);
+      text-decoration: underline;
+    }
     .form-btn {
       display: block; width: 100%;
       padding: 16px;
@@ -111,10 +123,9 @@ function htmlCard() {
       -webkit-tap-highlight-color: transparent;
     }
     .form-btn:active { background: rgba(255,255,255,0.05); }
-    .meta {
+    .footer-note {
       margin-top: 24px;
-      font-size: 0.8rem; color: rgba(255,255,255,0.3);
-      line-height: 1.8;
+      font-size: 0.65rem; color: rgba(255,255,255,0.25);
     }
   </style>
 </head>
@@ -123,9 +134,16 @@ function htmlCard() {
     <img class="avatar" src="/sxsw/assets/jeremy.jpeg" alt="Jeremy Boxer">
     <p class="name">Jeremy Boxer</p>
     <p class="title">Futuro</p>
-    <a class="save-btn" href="/sxsw/jeremy.vcf" download="jeremy-boxer.vcf">Save to Contacts</a>
+    <a class="save-btn" href="/sxsw/jeremy.vcf">Save to Contacts</a>
+    <p class="hint">Tap "Save to Contacts", then confirm in your Contacts app.</p>
+    <div class="actions">
+      <a href="tel:+13107474475">Call</a>
+      <a href="sms:+13107474475">Text</a>
+      <a href="mailto:Jeremy@futuro.so">Email</a>
+      <a href="https://www.futuro.so" target="_blank" rel="noreferrer">Visit Futuro</a>
+    </div>
     <a class="form-btn" href="/sxsw/">Drop your info &rarr;</a>
-    <p class="meta">+1 (310) 747-4475<br>Jeremy@futuro.so</p>
+    <p class="footer-note">Built with Futuro &middot; SXSW</p>
   </div>
 </body>
 </html>`;
