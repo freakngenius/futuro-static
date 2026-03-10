@@ -99,6 +99,32 @@
                 width: 280px;
             }
         }
+
+        /* Portrait lock */
+        .rotate-overlay { display: none; }
+
+        @media (orientation: landscape) and (max-height: 600px) {
+            .rotate-overlay {
+                display: flex;
+                position: fixed;
+                inset: 0;
+                z-index: 999;
+                background: #0a0a0f;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                text-align: center;
+                padding: 24px;
+            }
+            .rotate-overlay svg { opacity: 0.5; animation: rotateHint 2s ease-in-out infinite; }
+            .rotate-overlay p { font-size: 1rem; color: rgba(255,255,255,0.6); }
+            @keyframes rotateHint {
+                0%, 100% { transform: rotate(0deg); }
+                50% { transform: rotate(90deg); }
+            }
+            body > *:not(.rotate-overlay) { visibility: hidden; }
+        }
     </style>
 </head>
 <body>
@@ -106,6 +132,14 @@
         <source src="/sxsw/assets/sxsw-02.mp4" type="video/mp4">
     </video>
     <div class="bg-overlay"></div>
+
+    <div class="rotate-overlay" aria-hidden="true">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="4" width="28" height="40" rx="4" stroke="white" stroke-width="2.5"/>
+            <circle cx="22" cy="38" r="2" fill="white"/>
+        </svg>
+        <p>Please rotate your device to portrait mode</p>
+    </div>
 
     <div class="qr-page">
         <img src="/sxsw/assets/starling_logo_lockup_white.png" alt="Futuro" class="qr-logo">
@@ -115,5 +149,10 @@
         </div>
     </div>
 
+    <script>
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('portrait').catch(function () {});
+        }
+    </script>
 </body>
 </html>
