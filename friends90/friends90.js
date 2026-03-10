@@ -72,17 +72,17 @@ function unlockGate(code, group, skipAnimation) {
     inviteCodeInput.classList.add('success');
 
     // Animate gate out, form in
+    // Use setTimeout (not animationend) — more reliable across browsers/mobile
     setTimeout(() => {
         gatePage.classList.add('gate-fade-out');
 
-        gatePage.addEventListener('animationend', function handler() {
-            gatePage.removeEventListener('animationend', handler);
+        setTimeout(() => {
             gatePage.style.display = 'none';
 
             formPage.style.display = 'flex';
             formPage.classList.add('form-fade-in');
             initForm();
-        });
+        }, 350); // matches 0.3s gateFadeOut animation + buffer
     }, 400); // Let the green flash show briefly
 }
 
