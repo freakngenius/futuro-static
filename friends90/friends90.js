@@ -141,6 +141,11 @@ function attemptUnlock() {
     }
 }
 
+// ===========================================
+// FORM LOGIC (initialized after gate unlock)
+// ===========================================
+let formInitialized = false;
+
 // --- Auto-unlock via ?code= URL param ---
 if (codeParam) {
     const result = validateCode(codeParam);
@@ -149,11 +154,6 @@ if (codeParam) {
     }
     // If invalid param, just show the gate normally
 }
-
-// ===========================================
-// FORM LOGIC (initialized after gate unlock)
-// ===========================================
-let formInitialized = false;
 
 function initForm() {
     if (formInitialized) return;
@@ -224,6 +224,22 @@ function initForm() {
         emailInput.classList.remove('error');
     });
 
+    // --- "Other" tools toggle ---
+    const toolsOtherCheck = document.getElementById('toolsOtherCheck');
+    const toolsOtherInput = document.getElementById('currentToolsOther');
+
+    if (toolsOtherCheck && toolsOtherInput) {
+        toolsOtherCheck.addEventListener('change', () => {
+            if (toolsOtherCheck.checked) {
+                toolsOtherInput.classList.add('visible');
+                toolsOtherInput.focus();
+            } else {
+                toolsOtherInput.classList.remove('visible');
+                toolsOtherInput.value = '';
+            }
+        });
+    }
+
     // --- Sanitize ---
     function sanitize(str) {
         const div = document.createElement('div');
@@ -244,20 +260,29 @@ function initForm() {
         formError.textContent = '';
 
         // Collect survey fields
-        const selectedRole = document.querySelector('input[name="role"]:checked');
-        const selectedIndustries = Array.from(document.querySelectorAll('input[name="industry"]:checked'))
-            .map(cb => cb.value);
-        const howHeard = document.getElementById('howHeard').value;
-        const agreedToTest = document.getElementById('agreedToTest').checked;
+        const workStyle = document.getElementById('workStyle').value;
+        const selectedProjectTypes = Array.from(
+            document.querySelectorAll('input[name="projectTypes"]:checked')
+        ).map(cb => cb.value);
+        const selectedTools = Array.from(
+            document.querySelectorAll('input[name="currentTools"]:checked')
+        ).map(cb => cb.value);
+        const toolsOtherText = (document.getElementById('currentToolsOther').value || '').trim();
+        const selectedFrustrations = Array.from(
+            document.querySelectorAll('input[name="frustrations"]:checked')
+        ).map(cb => cb.value);
+        const involvement = document.getElementById('involvement').value;
 
         const payload = {
             name: sanitize(nameInput.value),
             email: sanitize(emailInput.value),
             referral: sanitize(referralInput.value) || DEFAULT_REFERRAL,
-            role: selectedRole ? selectedRole.value : '',
-            industry: selectedIndustries.join(', '),
-            howHeard: howHeard || '',
-            agreedToTest: agreedToTest,
+            workStyle: workStyle || '',
+            projectTypes: selectedProjectTypes.join(', '),
+            currentTools: selectedTools.join(', '),
+            currentToolsOther: sanitize(toolsOtherText),
+            frustrations: selectedFrustrations.join(', '),
+            involvement: involvement || '',
             invite_code: validatedCode,
             code_group: validatedCodeGroup,
             promo: 'friends90',

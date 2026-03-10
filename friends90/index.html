@@ -294,6 +294,57 @@ body {
     color: rgba(255, 255, 255, 0.4);
 }
 
+/* Compact 2-col grid for frustrations */
+.checkbox-group--compact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.checkbox-group--compact .check-label {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+}
+
+/* Animated Other text field */
+.other-input-reveal {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+    margin-top: 0;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    color: #fff;
+    font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.other-input-reveal.visible {
+    max-height: 60px;
+    opacity: 1;
+    margin-top: 8px;
+}
+
+.other-input-reveal:focus {
+    outline: none;
+    border-color: #7054ea;
+}
+
+.other-input-reveal::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* Section gap between form groups */
+.form-section-gap {
+    height: 8px;
+}
+
 .field-error {
     font-size: 0.8rem;
     color: #ef4444;
@@ -562,6 +613,7 @@ body {
                 <form id="friends90Form" class="signup-form" novalidate>
                     <div class="form-fields-wrapper">
                         <div class="glass-backdrop"></div>
+                        <!-- Identity (required) -->
                         <div class="form-field">
                             <label for="name">Name <span class="req">*</span></label>
                             <input type="text" id="name" name="name" required autocomplete="name" placeholder="Your name">
@@ -574,55 +626,81 @@ body {
                             <span class="field-error" id="emailError"></span>
                         </div>
 
-                        <!-- Survey: Role (radio, optional) -->
-                        <div class="form-field">
-                            <label>Role</label>
-                            <div class="radio-group">
-                                <label class="radio-label"><input type="radio" name="role" value="Investor"> Investor</label>
-                                <label class="radio-label"><input type="radio" name="role" value="Creator"> Creator</label>
-                                <label class="radio-label"><input type="radio" name="role" value="Executive"> Executive</label>
-                                <label class="radio-label"><input type="radio" name="role" value="Other"> Other</label>
-                            </div>
-                        </div>
+                        <div class="form-section-gap"></div>
 
-                        <!-- Survey: Industry (checkbox, optional) -->
+                        <!-- About your work (optional) -->
                         <div class="form-field">
-                            <label>Industry <span class="hint">(select all that apply)</span></label>
-                            <div class="checkbox-group">
-                                <label class="check-label"><input type="checkbox" name="industry" value="Advertising"> Advertising</label>
-                                <label class="check-label"><input type="checkbox" name="industry" value="Filmmaking"> Filmmaking</label>
-                                <label class="check-label"><input type="checkbox" name="industry" value="Social Media"> Social Media</label>
-                                <label class="check-label"><input type="checkbox" name="industry" value="Community Platform"> Community Platform</label>
-                                <label class="check-label"><input type="checkbox" name="industry" value="Education"> Education</label>
-                                <label class="check-label"><input type="checkbox" name="industry" value="Marketing"> Marketing</label>
-                                <label class="check-label"><input type="checkbox" name="industry" value="Other"> Other</label>
-                            </div>
-                        </div>
-
-                        <!-- Survey: How heard (dropdown, optional) -->
-                        <div class="form-field">
-                            <label for="howHeard">How did you hear about Futuro?</label>
-                            <select id="howHeard" name="howHeard">
+                            <label for="workStyle">How do you work?</label>
+                            <select id="workStyle" name="workStyle">
                                 <option value="">Select...</option>
-                                <option value="Jeremy Boxer">Jeremy Boxer</option>
-                                <option value="Social Media">Social Media</option>
-                                <option value="Community">Community</option>
-                                <option value="Other">Other</option>
+                                <option value="Solo creator">Solo creator</option>
+                                <option value="Small team (2-5)">Small team (2-5)</option>
+                                <option value="Studio / agency">Studio / agency</option>
+                                <option value="In-house team">In-house team</option>
+                                <option value="Freelance / consulting">Freelance / consulting</option>
                             </select>
                         </div>
 
-                        <!-- Survey: Testing interest (checkbox, optional) -->
                         <div class="form-field">
-                            <label class="check-label standalone">
-                                <input type="checkbox" id="agreedToTest" name="agreedToTest">
-                                I am interested in testing and giving feedback on the product
-                            </label>
+                            <label>What kind of projects? <span class="hint">(select all that apply)</span></label>
+                            <div class="checkbox-group">
+                                <label class="check-label"><input type="checkbox" name="projectTypes" value="Commercials / ads"> Commercials / ads</label>
+                                <label class="check-label"><input type="checkbox" name="projectTypes" value="Short-form social"> Short-form social</label>
+                                <label class="check-label"><input type="checkbox" name="projectTypes" value="Narrative / film"> Narrative / film</label>
+                                <label class="check-label"><input type="checkbox" name="projectTypes" value="Music videos"> Music videos</label>
+                                <label class="check-label"><input type="checkbox" name="projectTypes" value="Brand content"> Brand content</label>
+                                <label class="check-label"><input type="checkbox" name="projectTypes" value="Internal / corporate"> Internal / corporate</label>
+                                <label class="check-label"><input type="checkbox" name="projectTypes" value="Experiential / live"> Experiential / live</label>
+                                <label class="check-label"><input type="checkbox" name="projectTypes" value="Other"> Other</label>
+                            </div>
                         </div>
 
                         <div class="form-field">
-                            <label for="referral">Referred by</label>
-                            <input type="text" id="referral" name="referral" autocomplete="off" placeholder="Who connected us?">
+                            <label>Current tools for organizing projects <span class="hint">(select all that apply)</span></label>
+                            <div class="checkbox-group">
+                                <label class="check-label"><input type="checkbox" name="currentTools" value="Spreadsheets"> Spreadsheets</label>
+                                <label class="check-label"><input type="checkbox" name="currentTools" value="Notion / docs"> Notion / docs</label>
+                                <label class="check-label"><input type="checkbox" name="currentTools" value="Frame.io"> Frame.io</label>
+                                <label class="check-label"><input type="checkbox" name="currentTools" value="Figma / FigJam"> Figma / FigJam</label>
+                                <label class="check-label"><input type="checkbox" name="currentTools" value="Milanote"> Milanote</label>
+                                <label class="check-label"><input type="checkbox" name="currentTools" value="Trello / Asana"> Trello / Asana</label>
+                                <label class="check-label"><input type="checkbox" name="currentTools" value="Nothing yet"> Nothing yet</label>
+                                <label class="check-label"><input type="checkbox" name="currentTools" value="Other" id="toolsOtherCheck"> Other</label>
+                            </div>
+                            <input type="text" id="currentToolsOther" name="currentToolsOther" class="other-input-reveal" placeholder="What else do you use?" autocomplete="off">
                         </div>
+
+                        <div class="form-section-gap"></div>
+
+                        <!-- Help us build for you (optional) -->
+                        <div class="form-field">
+                            <label>What slows you down? <span class="hint">(pick your top frustrations)</span></label>
+                            <div class="checkbox-group checkbox-group--compact">
+                                <label class="check-label"><input type="checkbox" name="frustrations" value="Going from idea to final delivery"> Idea to delivery speed</label>
+                                <label class="check-label"><input type="checkbox" name="frustrations" value="Keeping track of assets"> Keeping track of assets</label>
+                                <label class="check-label"><input type="checkbox" name="frustrations" value="Messy file naming"> Messy file naming</label>
+                                <label class="check-label"><input type="checkbox" name="frustrations" value="Keeping shots organized"> Keeping shots organized</label>
+                                <label class="check-label"><input type="checkbox" name="frustrations" value="Knowing the status of each shot"> Status of each shot</label>
+                                <label class="check-label"><input type="checkbox" name="frustrations" value="Knowing what team members are working on"> What the team is working on</label>
+                                <label class="check-label"><input type="checkbox" name="frustrations" value="Finding the latest version"> Finding the latest version</label>
+                                <label class="check-label"><input type="checkbox" name="frustrations" value="Tracking feedback"> Tracking feedback</label>
+                                <label class="check-label"><input type="checkbox" name="frustrations" value="Managing client reviews"> Managing client reviews</label>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="involvement">How involved do you want to be?</label>
+                            <select id="involvement" name="involvement">
+                                <option value="">Select...</option>
+                                <option value="Just keep me posted">Just keep me posted</option>
+                                <option value="I'll try it when it's ready">I'll try it when it's ready</option>
+                                <option value="I want early access + to give feedback">I want early access + to give feedback</option>
+                                <option value="Put me in, coach">Put me in, coach</option>
+                            </select>
+                        </div>
+
+                        <!-- Hidden: auto-filled from ?ref= param -->
+                        <input type="hidden" id="referral" name="referral" value="">
                     </div><!-- /.form-fields-wrapper -->
 
                     <button type="submit" class="submit-btn" id="submitBtn">

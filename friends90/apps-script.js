@@ -20,10 +20,12 @@ const HEADERS = [
   'name',
   'email',
   'referral',
-  'role',
-  'industry',
-  'howHeard',
-  'agreedToTest',
+  'workStyle',
+  'projectTypes',
+  'currentTools',
+  'currentToolsOther',
+  'frustrations',
+  'involvement',
   'invite_code',
   'code_group',
   'promo',
@@ -73,14 +75,18 @@ function doPost(e) {
           return sanitize(data.email).toLowerCase();
         case 'referral':
           return sanitize(data.referral) || 'Jeremy Boxer';
-        case 'role':
-          return sanitize(data.role);
-        case 'industry':
-          return sanitize(data.industry);
-        case 'howHeard':
-          return sanitize(data.howHeard);
-        case 'agreedToTest':
-          return data.agreedToTest ? 'Yes' : 'No';
+        case 'workStyle':
+          return sanitize(data.workStyle);
+        case 'projectTypes':
+          return sanitize(data.projectTypes);
+        case 'currentTools':
+          return sanitize(data.currentTools);
+        case 'currentToolsOther':
+          return sanitize(data.currentToolsOther);
+        case 'frustrations':
+          return sanitize(data.frustrations);
+        case 'involvement':
+          return sanitize(data.involvement);
         case 'invite_code':
           return sanitize(data.invite_code);
         case 'code_group':
