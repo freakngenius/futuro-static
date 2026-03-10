@@ -1,22 +1,19 @@
 /**
- * Vercel Edge Middleware — runs BEFORE filesystem routing.
- * Intercepts GET /sxsw and serves either a vCard or an HTML fallback
- * depending on the requesting device.
+ * Vercel Edge Middleware
  *
- * Why middleware instead of a rewrite in vercel.json?
- * Vercel rewrites are applied AFTER static file matching, so they can't
- * override a path that has a physical file (sxsw/index.html). Middleware
- * runs before all of that.
+ * Flow: /sxsw/qr → /sxsw/jeremy → /sxsw
+ *   /sxsw/qr     — Jeremy shows QR code on his phone
+ *   /sxsw/jeremy — attendee scans QR, saves Jeremy's contact, taps through to form
+ *   /sxsw/       — survey/capture form (static, untouched)
+ *
+ * Why middleware?
+ * Vercel rewrites run AFTER static file matching and can't override physical files.
+ * Middleware runs before everything, so it can serve /sxsw/jeremy (no static file
+ * conflict) cleanly.
  *
  * Why Content-Disposition: inline?
- * "attachment" forces a download. "inline" tells the OS to open the file
- * with its registered handler — on iOS that's Contacts, which surfaces
- * the native "Add Contact" sheet directly in Safari.
- *
- * Splitting /sxsw (smart) vs /sxsw/contact.vcf (raw) later:
- * The HTML fallback already links to /sxsw/jeremy.vcf (the static file).
- * To add a separate clean URL, add another middleware branch for
- * /sxsw/contact.vcf and return the same vCard Response there.
+ * "attachment" forces a file download. "inline" tells iOS to open the vCard with
+ * its registered handler (Contacts), surfacing the native "Add Contact" sheet.
  */
 
 const VCARD = [
@@ -32,7 +29,7 @@ const VCARD = [
 ].join('\r\n');
 
 // ---------------------------------------------------------------------------
-// Scan logging stub — replace with your analytics/DB call when ready
+// Scan logging stub
 // ---------------------------------------------------------------------------
 function logScan(request, responseType) {
   // TODO: persist scan data
@@ -45,18 +42,14 @@ function logScan(request, responseType) {
 }
 
 // ---------------------------------------------------------------------------
-// UA detection
-// iOS Safari is the reliable vCard path — camera opens URLs in Safari and
-// iOS handles text/vcard inline via the Contacts sheet.
-// Android Chrome silently drops .vcf files into Downloads, so HTML is better.
+// iOS Safari → serve vCard inline so Contacts sheet opens immediately.
+// Everyone else → HTML card with JS-triggered download + CTA to the form.
 // ---------------------------------------------------------------------------
 function shouldServeVCard(request) {
   const accept = (request.headers.get('accept') || '').toLowerCase();
   const ua     =  request.headers.get('user-agent') || '';
 
-  if (accept.includes('text/vcard') || accept.includes('application/vcard+json')) {
-    return true;
-  }
+  if (accept.includes('text/vcard') || accept.includes('application/vcard+json')) return true;
 
   const isIOS    = /iPhone|iPad|iPod/.test(ua);
   const isSafari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
@@ -64,18 +57,17 @@ function shouldServeVCard(request) {
 }
 
 // ---------------------------------------------------------------------------
-// HTML fallback — minimal contact card with a single Save button
+// HTML contact card — auto-triggers vCard download, then CTA to the form
 // ---------------------------------------------------------------------------
-function htmlFallback() {
+function htmlCard() {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Jeremy Boxer — Futuro</title>
-  <meta name="description" content="Save Jeremy Boxer's contact info from Futuro.">
+  <meta name="description" content="Save Jeremy Boxer's contact and drop your info.">
   <meta property="og:title" content="Jeremy Boxer — Futuro">
-  <meta property="og:description" content="Founder at Futuro — agentic production management for GenAI creators.">
   <meta property="og:image" content="https://www.futuro.so/sxsw/assets/jeremy.jpeg">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -91,32 +83,37 @@ function htmlFallback() {
     }
     .card { text-align: center; max-width: 340px; width: 100%; }
     .avatar {
-      width: 96px;
-      height: 96px;
+      width: 96px; height: 96px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
       border: 2px solid rgba(255,255,255,0.12);
     }
     .name  { font-size: 1.75rem; font-weight: 700; margin-bottom: 4px; }
-    .title { font-size: 1rem; color: rgba(255,255,255,0.5); margin-bottom: 36px; }
+    .title { font-size: 1rem; color: rgba(255,255,255,0.5); margin-bottom: 32px; }
     .save-btn {
-      display: block;
-      width: 100%;
+      display: block; width: 100%;
       padding: 18px;
-      background: #7054ea;
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 14px;
-      text-decoration: none;
+      background: #7054ea; color: #fff;
+      font-size: 1.1rem; font-weight: 600;
+      border-radius: 14px; text-decoration: none;
       -webkit-tap-highlight-color: transparent;
+      margin-bottom: 12px;
     }
     .save-btn:active { background: #5a3fd6; }
+    .form-btn {
+      display: block; width: 100%;
+      padding: 16px;
+      background: transparent; color: rgba(255,255,255,0.7);
+      font-size: 1rem; font-weight: 500;
+      border-radius: 14px; text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .form-btn:active { background: rgba(255,255,255,0.05); }
     .meta {
       margin-top: 24px;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem; color: rgba(255,255,255,0.3);
       line-height: 1.8;
     }
   </style>
@@ -126,26 +123,30 @@ function htmlFallback() {
     <img class="avatar" src="/sxsw/assets/jeremy.jpeg" alt="Jeremy Boxer">
     <p class="name">Jeremy Boxer</p>
     <p class="title">Founder &middot; Futuro</p>
-    <a class="save-btn" href="/sxsw/jeremy.vcf" download="jeremy-boxer.vcf">
-      Save to Contacts
-    </a>
-    <p class="meta">
-      +1 (310) 747-4475<br>
-      Jeremy@futuro.so
-    </p>
+    <a class="save-btn" href="/sxsw/jeremy.vcf" download="jeremy-boxer.vcf">Save to Contacts</a>
+    <a class="form-btn" href="/sxsw/">Drop your info &rarr;</a>
+    <p class="meta">+1 (310) 747-4475<br>Jeremy@futuro.so</p>
   </div>
+  <script>
+    // Auto-trigger vCard download on load
+    var a = document.createElement('a');
+    a.href = '/sxsw/jeremy.vcf';
+    a.download = 'jeremy-boxer.vcf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  </script>
 </body>
 </html>`;
 }
 
 // ---------------------------------------------------------------------------
-// Middleware entry point
+// Handler
 // ---------------------------------------------------------------------------
 export default function middleware(request) {
   const { pathname } = new URL(request.url);
 
-  // Only intercept exactly /sxsw — let /sxsw/ and all sub-paths serve static files
-  if (pathname !== '/sxsw') return;
+  if (pathname !== '/sxsw/jeremy') return;
 
   const serveVCard = shouldServeVCard(request);
   logScan(request, serveVCard ? 'vcard' : 'html');
@@ -161,7 +162,7 @@ export default function middleware(request) {
     });
   }
 
-  return new Response(htmlFallback(), {
+  return new Response(htmlCard(), {
     status: 200,
     headers: {
       'Content-Type': 'text/html; charset=utf-8',
@@ -171,5 +172,5 @@ export default function middleware(request) {
 }
 
 export const config = {
-  matcher: '/sxsw',
+  matcher: '/sxsw/jeremy',
 };
