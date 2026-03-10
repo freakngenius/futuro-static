@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Scan to Connect — Futuro</title>
+    <link rel="icon" type="image/png" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #0a0a0f;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-video {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 1;
+        }
+
+        .qr-page {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+        }
+
+        .qr-logo {
+            width: 240px;
+            height: auto;
+            margin-bottom: 12px;
+        }
+
+        .qr-tagline {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: #ffffff;
+        }
+
+        .qr-container {
+            background: rgba(0, 0, 0, 0.80);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 24px;
+            margin-bottom: 28px;
+            display: inline-block;
+        }
+
+        .qr-container img {
+            width: 204px;
+            height: 204px;
+            display: block;
+            filter: invert(1);
+        }
+
+        .qr-instruction {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .qr-sub {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (min-width: 480px) {
+            .qr-container img {
+                width: 238px;
+                height: 238px;
+            }
+            .qr-logo {
+                width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <video class="bg-video" autoplay muted loop playsinline poster="/sxsw/assets/sxsw-bg-02.jpg">
+        <source src="/sxsw/assets/sxsw-02.mp4" type="video/mp4">
+    </video>
+    <div class="bg-overlay"></div>
+
+    <div class="qr-page">
+        <img src="/sxsw/assets/starling_logo_lockup_white.png" alt="Futuro" class="qr-logo">
+        <p class="qr-tagline">Let's connect!</p>
+        <div class="qr-container">
+            <img src="/sxsw/assets/qr-code.png" alt="QR Code — Scan to save contact for Jeremy Boxer at Futuro">
+        </div>
+    </div>
+</body>
+</html>

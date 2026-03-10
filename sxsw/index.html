@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Futuro — Let's Connect | SXSW 2026</title>
+    <meta name="description" content="Connect with Futuro at SXSW 2026. An agentic production management platform for GenAI creators — launching soon.">
+    <link rel="icon" type="image/png" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="sxsw.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RV9R3N637Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RV9R3N637Z');
+    </script>
+</head>
+<body>
+    <!-- Background Video -->
+    <video class="bg-video" autoplay muted loop playsinline poster="/sxsw/assets/sxsw-bg-01.jpg">
+        <source src="/sxsw/assets/sxsw-01.mp4" type="video/mp4">
+    </video>
+    <div class="bg-fallback"></div>
+
+    <div class="page">
+        <div class="container">
+            <div class="container-inner">
+                <!-- Logo -->
+                <a href="/" class="logo-link">
+                    <img src="/sxsw/assets/starling_logo_lockup_white.png" alt="Futuro" class="logo">
+                </a>
+
+            <!-- Headline -->
+            <h1 class="headline">Let's stay connected</h1>
+            <p class="subline">Futuro is an agentic production management platform for GenAI creators — launching 2026. Drop your info and we'll be in touch.</p>
+
+            <!-- Form -->
+            <form id="sxswForm" class="signup-form" novalidate>
+                <div class="form-fields-wrapper">
+                    <div class="glass-backdrop"></div>
+                <div class="form-field">
+                    <label for="name">Name <span class="req">*</span></label>
+                    <input type="text" id="name" name="name" required autocomplete="name" placeholder="Your name">
+                    <span class="field-error" id="nameError"></span>
+                </div>
+
+                <div class="form-field">
+                    <label for="email">Email <span class="req">*</span></label>
+                    <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@email.com" inputmode="email">
+                    <span class="field-error" id="emailError"></span>
+                </div>
+
+                <!-- Survey: Role (radio, optional) -->
+                <div class="form-field">
+                    <label>Role</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="role" value="Investor"> Investor</label>
+                        <label class="radio-label"><input type="radio" name="role" value="Creator"> Creator</label>
+                        <label class="radio-label"><input type="radio" name="role" value="Executive"> Executive</label>
+                        <label class="radio-label"><input type="radio" name="role" value="Other"> Other</label>
+                    </div>
+                </div>
+
+                <!-- Survey: Industry (checkbox, optional) -->
+                <div class="form-field">
+                    <label>Industry <span class="hint">(select all that apply)</span></label>
+                    <div class="checkbox-group">
+                        <label class="check-label"><input type="checkbox" name="industry" value="Advertising"> Advertising</label>
+                        <label class="check-label"><input type="checkbox" name="industry" value="Filmmaking"> Filmmaking</label>
+                        <label class="check-label"><input type="checkbox" name="industry" value="Social Media"> Social Media</label>
+                        <label class="check-label"><input type="checkbox" name="industry" value="Community Platform"> Community Platform</label>
+                        <label class="check-label"><input type="checkbox" name="industry" value="Education"> Education</label>
+                        <label class="check-label"><input type="checkbox" name="industry" value="Marketing"> Marketing</label>
+                        <label class="check-label"><input type="checkbox" name="industry" value="Other"> Other</label>
+                    </div>
+                </div>
+
+                <!-- Survey: How heard (dropdown, optional) -->
+                <div class="form-field">
+                    <label for="howHeard">How did you hear about Futuro?</label>
+                    <select id="howHeard" name="howHeard">
+                        <option value="">Select...</option>
+                        <option value="Jeremy Boxer">Jeremy Boxer</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="Community">Community</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Survey: Testing interest (checkbox, optional) -->
+                <div class="form-field">
+                    <label class="check-label standalone">
+                        <input type="checkbox" id="agreedToTest" name="agreedToTest">
+                        I am interested in testing and giving feedback on the product
+                    </label>
+                </div>
+
+                <div class="form-field">
+                    <label for="referral">Referred by</label>
+                    <input type="text" id="referral" name="referral" autocomplete="off" placeholder="Who connected us?">
+                </div>
+                </div><!-- /.form-fields-wrapper -->
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="btn-text">Connect</span>
+                    <span class="btn-loading" style="display:none;">Sending...</span>
+                </button>
+
+                <span class="form-error" id="formError"></span>
+            </form>
+
+            <!-- Success State -->
+            <div id="successState" class="success-state" style="display:none;">
+                <div class="success-icon">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                        <circle cx="32" cy="32" r="32" fill="#7054ea" opacity="0.15"/>
+                        <circle cx="32" cy="32" r="24" fill="#7054ea" opacity="0.25"/>
+                        <path d="M22 32L29 39L42 26" stroke="#7054ea" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h2 class="success-headline">You're in.</h2>
+                <p class="success-sub">Thanks for connecting — we'll be in touch soon. Enjoy the rest of SXSW!</p>
+            </div>
+
+                <!-- Footer -->
+                <footer class="footer">
+                    &copy; <span id="year"></span> Futuro. All rights reserved.
+                </footer>
+            </div><!-- /.container-inner -->
+        </div><!-- /.container -->
+    </div>
+
+    <script src="sxsw.js"></script>
+</body>
+</html>

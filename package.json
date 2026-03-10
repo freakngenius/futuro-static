@@ -1,0 +1,19 @@
+{
+  "name": "futuro-static",
+  "version": "1.0.0",
+  "main": "script.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "qrcode": "^1.5.4"
+  }
+}
