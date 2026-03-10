@@ -97,6 +97,8 @@ function htmlCard() {
       background: #7054ea; color: #fff;
       font-size: 1.1rem; font-weight: 600;
       border-radius: 14px; text-decoration: none;
+      border: none; cursor: pointer;
+      font-family: inherit;
       -webkit-tap-highlight-color: transparent;
       margin-bottom: 12px;
     }
@@ -134,7 +136,7 @@ function htmlCard() {
     <img class="avatar" src="/sxsw/assets/jeremy.jpeg" alt="Jeremy Boxer">
     <p class="name">Jeremy Boxer</p>
     <p class="title">Futuro</p>
-    <a class="save-btn" href="/sxsw/jeremy.vcf">Save to Contacts</a>
+    <button class="save-btn" onclick="saveContact(this)">Save to Contacts</button>
     <p class="hint">Tap above to add Jeremy directly to your Contacts.</p>
     <div class="actions">
       <a href="tel:+13107474475">Call</a>
@@ -145,6 +147,29 @@ function htmlCard() {
     <a class="form-btn" href="/sxsw/">Drop your info &rarr;</a>
     <p class="footer-note">Built with Futuro &middot; SXSW</p>
   </div>
+  <script>
+    function saveContact(btn) {
+      var vcfUrl = 'https://www.futuro.so/sxsw/jeremy.vcf';
+      var ua = navigator.userAgent || '';
+
+      if (/Android/.test(ua)) {
+        // Android Chrome blocks .vcf intent from plain links — use Android Intent URL
+        // to bypass Chrome's download manager and hand directly to Contacts app.
+        // browser_fallback_url fires if no Contacts app handles it.
+        var intentUrl = 'intent:' + vcfUrl +
+          '#Intent' +
+          ';action=android.intent.action.VIEW' +
+          ';type=text/vcard' +
+          ';S.browser_fallback_url=' + encodeURIComponent(vcfUrl) +
+          ';end';
+        window.location.href = intentUrl;
+      } else {
+        // iOS Safari: navigating to text/vcard + Content-Disposition: inline
+        // triggers the native "Add to Contacts" sheet directly.
+        window.location.href = vcfUrl;
+      }
+    }
+  </script>
 </body>
 </html>`;
 }
