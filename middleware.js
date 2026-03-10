@@ -97,8 +97,6 @@ function htmlCard() {
       background: #7054ea; color: #fff;
       font-size: 1.1rem; font-weight: 600;
       border-radius: 14px; text-decoration: none;
-      border: none; cursor: pointer;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
       -webkit-tap-highlight-color: transparent;
       margin-bottom: 12px;
     }
@@ -136,7 +134,7 @@ function htmlCard() {
     <img class="avatar" src="/sxsw/assets/jeremy.jpeg" alt="Jeremy Boxer">
     <p class="name">Jeremy Boxer</p>
     <p class="title">Futuro</p>
-    <button class="save-btn" onclick="saveContact()">Save to Contacts</button>
+    <a class="save-btn" href="/sxsw/jeremy.vcf">Save to Contacts</a>
     <p class="hint">Tap above to add Jeremy directly to your Contacts.</p>
     <div class="actions">
       <a href="tel:+13107474475">Call</a>
@@ -147,25 +145,6 @@ function htmlCard() {
     <a class="form-btn" href="/sxsw/">Drop your info &rarr;</a>
     <p class="footer-note">Built with Futuro &middot; SXSW</p>
   </div>
-  <script>
-    async function saveContact() {
-      var vcfUrl = '/sxsw/jeremy.vcf';
-      // Android Chrome: Web Share API opens native share sheet → user picks Contacts
-      if (navigator.canShare) {
-        try {
-          var res = await fetch(vcfUrl);
-          var blob = await res.blob();
-          var file = new File([blob], 'jeremy-boxer.vcf', { type: 'text/vcard' });
-          if (navigator.canShare({ files: [file] })) {
-            await navigator.share({ files: [file] });
-            return;
-          }
-        } catch (e) {}
-      }
-      // iOS Safari: navigate to vcf URL — browser hands text/vcard to Contacts app
-      window.location.href = vcfUrl;
-    }
-  </script>
 </body>
 </html>`;
 }
