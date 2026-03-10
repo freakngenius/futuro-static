@@ -30,7 +30,7 @@ test.describe('SXSW Landing Page — Load', () => {
     await expect(page).toHaveTitle(/Futuro.*SXSW/);
     await expect(page.locator('.headline')).toHaveText("Let's stay connected");
     await expect(page.locator('.subline')).toContainText('agentic production management platform');
-    await expect(page.locator('.logo')).toBeVisible();
+    await expect(page.locator('#formPage .logo')).toBeVisible();
     await expect(page.locator('#sxswForm')).toBeVisible();
   });
 
@@ -151,10 +151,10 @@ test.describe('SXSW Landing Page — Submit', () => {
     await page.locator('#email').fill('test@example.com');
     await page.locator('#submitBtn').click();
 
-    // Form should hide, success should show
-    await expect(page.locator('#sxswForm')).toBeHidden();
+    // Form page should hide, success overlay should show
+    await expect(page.locator('#formPage')).toBeHidden();
     await expect(page.locator('#successState')).toBeVisible();
-    await expect(page.locator('.success-headline')).toHaveText("You're in.");
+    await expect(page.locator('.success-headline')).toHaveText("Thanks, we'll be in touch!");
   });
 
   test('submit captures all fields in payload', async ({ page }) => {

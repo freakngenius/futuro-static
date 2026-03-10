@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Futuro — Let's Connect | SXSW 2026</title>
-    <meta name="description" content="Connect with Futuro at SXSW 2026. An agentic production management platform for GenAI creators — launching soon.">
+    <title>Futuro — Friends & Family | 90 Days Free</title>
+    <meta name="description" content="You've been invited to Futuro. Claim your complimentary 90-day access to our agentic production management platform for GenAI creators.">
     <link rel="icon" type="image/png" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,6 +95,20 @@ body {
 .logo {
     width: 300px;
     height: auto;
+}
+
+.badge {
+    display: inline-block;
+    background: rgba(112, 84, 234, 0.2);
+    border: 1px solid rgba(112, 84, 234, 0.4);
+    color: #b8a5ff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 16px;
 }
 
 .headline {
@@ -444,7 +458,7 @@ body {
     </script>
 </head>
 <body>
-    <!-- Background Video -->
+    <!-- Background Video (shared asset from /sxsw) -->
     <video class="bg-video" autoplay muted loop playsinline poster="/sxsw/assets/sxsw-bg-01.jpg">
         <source src="/sxsw/assets/sxsw-01.mp4" type="video/mp4">
     </video>
@@ -459,12 +473,14 @@ body {
                     <img src="/sxsw/assets/starling_logo_lockup_white.png" alt="Futuro" class="logo">
                 </a>
 
+                <span class="badge">90 Days Free</span>
+
                 <!-- Headline -->
-                <h1 class="headline">Let's stay connected</h1>
-                <p class="subline">Futuro is an agentic production management platform for GenAI creators — launching 2026. Drop your info and we'll be in touch.</p>
+                <h1 class="headline">You're invited</h1>
+                <p class="subline">As a friend of Futuro, you get 90 days of complimentary access when we launch. Drop your info to claim your spot.</p>
 
                 <!-- Form -->
-                <form id="sxswForm" class="signup-form" novalidate>
+                <form id="friends90Form" class="signup-form" novalidate>
                     <div class="form-fields-wrapper">
                         <div class="glass-backdrop"></div>
                         <div class="form-field">
@@ -531,7 +547,7 @@ body {
                     </div><!-- /.form-fields-wrapper -->
 
                     <button type="submit" class="submit-btn" id="submitBtn">
-                        <span class="btn-text">Connect</span>
+                        <span class="btn-text">Claim Your Spot</span>
                         <span class="btn-loading" style="display:none;">Sending...</span>
                     </button>
 
@@ -559,8 +575,8 @@ body {
                     <path d="M24 36L33 45L48 30" stroke="#7054ea" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <h2 class="success-headline">Thanks, we'll be in touch!</h2>
-            <p class="success-sub">Enjoy the rest of SXSW 🤘</p>
+            <h2 class="success-headline">You're in!</h2>
+            <p class="success-sub">Your 90-day complimentary access is locked in. We'll reach out when it's time to get started.</p>
         </div>
     </div>
 
@@ -573,9 +589,8 @@ body {
         <p>Please rotate your device to portrait mode</p>
     </div>
 
-    <script src="sxsw.js"></script>
+    <script src="friends90.js"></script>
     <script>
-        // Lock to portrait on Android (iOS ignores this — CSS overlay handles iOS)
         if (screen.orientation && screen.orientation.lock) {
             screen.orientation.lock('portrait').catch(function () {});
         }

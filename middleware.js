@@ -1,19 +1,23 @@
 /**
  * Vercel Edge Middleware
  *
- * Flow: /sxsw/qr → /sxsw/jeremy → /sxsw
- *   /sxsw/qr     — Jeremy shows QR code on his phone
- *   /sxsw/jeremy — attendee scans QR, saves Jeremy's contact, taps through to form
- *   /sxsw/       — survey/capture form (static, untouched)
+ * Flow: /sxsw/qr → /sxsw/jeremy → /sxsw/jeremy/save → /sxsw
+ *   /sxsw/qr          — Jeremy shows QR code on his phone
+ *   /sxsw/jeremy      — attendee scans QR, sees contact card, taps "Save to Contacts"
+ *   /sxsw/jeremy/save — intermediate page: navigates to .vcf (iOS intercepts → Contacts),
+ *                        meta-refresh sends browser to /sxsw/ after 3 s
+ *   /sxsw/            — survey/capture form (static, untouched)
  *
  * Why middleware?
  * Vercel rewrites run AFTER static file matching and can't override physical files.
  * Middleware runs before everything, so it can serve /sxsw/jeremy (no static file
  * conflict) cleanly.
  *
- * Why Content-Disposition: inline?
- * "attachment" forces a file download. "inline" tells iOS to open the vCard with
- * its registered handler (Contacts), surfacing the native "Add Contact" sheet.
+ * Why the /save intermediate page?
+ * iOS intercepts a text/vcard response and opens the Contacts sheet WITHOUT
+ * navigating the browser away from the current page. Because the page stays loaded,
+ * the <meta http-equiv="refresh"> in /save fires after 3 s and sends the user to
+ * /sxsw/ automatically — zero extra taps.
  */
 
 const VCARD = [
@@ -42,22 +46,7 @@ function logScan(request, responseType) {
 }
 
 // ---------------------------------------------------------------------------
-// iOS Safari → serve vCard inline so Contacts sheet opens immediately.
-// Everyone else → HTML card with JS-triggered download + CTA to the form.
-// ---------------------------------------------------------------------------
-function shouldServeVCard(request) {
-  const accept = (request.headers.get('accept') || '').toLowerCase();
-  const ua     =  request.headers.get('user-agent') || '';
-
-  if (accept.includes('text/vcard') || accept.includes('application/vcard+json')) return true;
-
-  const isIOS    = /iPhone|iPad|iPod/.test(ua);
-  const isSafari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
-  return isIOS && isSafari;
-}
-
-// ---------------------------------------------------------------------------
-// HTML contact card — auto-triggers vCard download, then CTA to the form
+// Contact card page — shown when user first scans QR code
 // ---------------------------------------------------------------------------
 function htmlCard() {
   return `<!DOCTYPE html>
@@ -148,7 +137,7 @@ function htmlCard() {
     <p class="footer-note">Built with Futuro &middot; SXSW</p>
   </div>
   <script>
-    var VCARD = [
+    var VCARD_TEXT = [
       'BEGIN:VCARD',
       'VERSION:3.0',
       'N:Boxer;Jeremy;;;',
@@ -156,15 +145,15 @@ function htmlCard() {
       'ORG:Futuro',
       'TEL;TYPE=CELL:+13107474475',
       'EMAIL;TYPE=INTERNET:Jeremy@futuro.so',
-      'URL:https://www.futuro.so',
+      'URL:https://www.futuro.so/sxsw',
       'END:VCARD'
-    ].join('\r\n');
+    ].join('\\r\\n');
 
     function saveContact() {
       var ua = navigator.userAgent || '';
 
+      // Android: intent URL opens Contacts directly, bypassing Chrome download manager
       if (/Android/.test(ua)) {
-        // Android: intent URL hands directly to Contacts app, bypassing Chrome download manager
         var vcfUrl = 'https://www.futuro.so/sxsw/jeremy.vcf';
         window.location.href = 'intent:' + vcfUrl +
           '#Intent;action=android.intent.action.VIEW;type=text/vcard' +
@@ -172,13 +161,18 @@ function htmlCard() {
         return;
       }
 
-      // iOS 16+: navigating to a remote .vcf URL downloads to Files.
-      // Blob URL is treated as a local resource — iOS opens it in Quick Look
-      // which shows the contact card with a native "Add All Contacts" button.
-      var blob = new Blob([VCARD], { type: 'text/vcard' });
-      var url = URL.createObjectURL(blob);
-      window.location.href = url;
-      setTimeout(function() { URL.revokeObjectURL(url); }, 5000);
+      // iOS: Web Share API with a VCF File object
+      // The iOS share sheet prominently shows "Add to Contacts" for .vcf files —
+      // one tap there opens the Contacts import dialog.
+      var file = new File([VCARD_TEXT], 'jeremy-boxer.vcf', { type: 'text/vcard' });
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({ files: [file], title: 'Jeremy Boxer \u2014 Futuro' })
+          .catch(function() {}); // user cancelled — do nothing
+        return;
+      }
+
+      // Fallback for older browsers: direct navigation to the VCF endpoint
+      window.location.href = '/sxsw/jeremy.vcf';
     }
   </script>
 </body>

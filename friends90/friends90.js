@@ -1,10 +1,8 @@
 // ===========================================
-// Futuro SXSW Contact Capture
+// Futuro Friends & Family — 90-Day Promo Capture
 // ===========================================
 
-// IMPORTANT: Replace this URL with your deployed Google Apps Script URL
-// See /sxsw/SETUP.md for instructions
-const SXSW_API_URL = 'https://script.google.com/macros/s/AKfycbzbI80VJw7fngxPCMcmVteVPv0vnPwN8hq-s4f8EaUAuO-XevoZdxreAe9LfXq5HU9jNw/exec';
+const FRIENDS90_API_URL = 'https://script.google.com/macros/s/AKfycby6IwwtePTpeZ86ijFoKYy3iVNox9KnlC0GOx27uMpY44asfAK8RFc7OnsBqbgUCJeu/exec';
 
 // --- URL Params ---
 const urlParams = new URLSearchParams(window.location.search);
@@ -22,7 +20,7 @@ utmKeys.forEach(key => {
 });
 
 // --- DOM ---
-const form = document.getElementById('sxswForm');
+const form = document.getElementById('friends90Form');
 const nameInput = document.getElementById('name');
 const emailInput = document.getElementById('email');
 const referralInput = document.getElementById('referral');
@@ -124,16 +122,18 @@ form.addEventListener('submit', async (e) => {
         industry: selectedIndustries.join(', '),
         howHeard: howHeard || '',
         agreedToTest: agreedToTest,
-        source: 'sxsw',
-        page_path: '/sxsw',
+        promo: 'friends90',
+        promo_days: 90,
+        source: 'friends90',
+        page_path: '/friends90',
         created_at: new Date().toISOString(),
         ...utmData
     };
 
     try {
-        const apiUrl = window.__SXSW_API_URL_OVERRIDE || SXSW_API_URL;
-        if (apiUrl === 'REPLACE_WITH_YOUR_APPS_SCRIPT_URL') {
-            throw new Error('Apps Script URL not configured. See SETUP.md');
+        const apiUrl = window.__FRIENDS90_API_URL_OVERRIDE || FRIENDS90_API_URL;
+        if (apiUrl === 'REPLACE_WITH_YOUR_FRIENDS90_APPS_SCRIPT_URL') {
+            throw new Error('Apps Script URL not configured. Deploy friends90/apps-script.js first.');
         }
 
         // Google Apps Script redirects POST via 302, which browsers convert to GET.
@@ -150,7 +150,7 @@ form.addEventListener('submit', async (e) => {
 
         // Track event
         if (typeof gtag === 'function') {
-            gtag('event', 'sxsw_signup', {
+            gtag('event', 'friends90_signup', {
                 event_category: 'engagement',
                 event_label: payload.referral,
             });
