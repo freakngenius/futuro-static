@@ -420,25 +420,6 @@ body {
     font-size: 1.1rem;
 }
 
-/* Gate transitions */
-.gate-fade-out {
-    animation: gateFadeOut 0.3s ease forwards;
-}
-
-.form-fade-in {
-    animation: formFadeIn 0.4s ease forwards;
-}
-
-@keyframes gateFadeOut {
-    from { opacity: 1; transform: translateY(0); }
-    to { opacity: 0; transform: translateY(-10px); }
-}
-
-@keyframes formFadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
 /* Shake animation for wrong code */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
