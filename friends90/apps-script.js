@@ -24,6 +24,8 @@ const HEADERS = [
   'industry',
   'howHeard',
   'agreedToTest',
+  'invite_code',
+  'code_group',
   'promo',
   'promo_days',
   'source',
@@ -79,6 +81,10 @@ function doPost(e) {
           return sanitize(data.howHeard);
         case 'agreedToTest':
           return data.agreedToTest ? 'Yes' : 'No';
+        case 'invite_code':
+          return sanitize(data.invite_code);
+        case 'code_group':
+          return sanitize(data.code_group);
         case 'promo':
           return sanitize(data.promo) || 'friends90';
         case 'promo_days':
