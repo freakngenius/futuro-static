@@ -114,20 +114,6 @@
             <img src="/sxsw/assets/qr-code.png" alt="QR Code — Scan to save contact for Jeremy Boxer at Futuro">
         </div>
     </div>
-    <script>
-        // Trigger vCard download, then redirect to SXSW page
-        window.addEventListener('DOMContentLoaded', function () {
-            var a = document.createElement('a');
-            a.href = '/sxsw/jeremy.vcf';
-            a.download = 'jeremy-boxer-futuro.vcf';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
 
-            setTimeout(function () {
-                window.location.href = 'https://www.futuro.so/sxsw/';
-            }, 2000);
-        });
-    </script>
 </body>
 </html>
